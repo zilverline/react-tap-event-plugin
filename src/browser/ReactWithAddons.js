@@ -35,6 +35,7 @@ var ReactTransitionGroup = require('ReactTransitionGroup');
 var cx = require('cx');
 var cloneWithProps = require('cloneWithProps');
 var update = require('update');
+var ReactInjection = require('ReactInjection');
 
 React.addons = {
   CSSTransitionGroup: ReactCSSTransitionGroup,
@@ -44,7 +45,14 @@ React.addons = {
 
   classSet: cx,
   cloneWithProps: cloneWithProps,
-  update: update
+  update: update,
+
+  injectTapEventPlugin: function() {
+    var TapEventPlugin = require('TapEventPlugin');
+    ReactInjection.EventPluginHub.injectEventPluginsByName({
+      TapEventPlugin: TapEventPlugin
+    });
+  }
 };
 
 if (__DEV__) {
