@@ -83,7 +83,6 @@ var dependencies = [
 
 if (EventPluginUtils.useTouchEvents) {
   dependencies.push(
-    topLevelTypes.topTouchCancel,
     topLevelTypes.topTouchEnd,
     topLevelTypes.topTouchStart,
     topLevelTypes.topTouchMove
