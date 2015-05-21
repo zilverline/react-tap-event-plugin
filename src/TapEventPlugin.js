@@ -99,14 +99,16 @@ var eventTypes = {
   }
 };
 
-var now = function() {
+var now = (function() {
   if (Date.now) {
-    return Date.now();
+    return Date.now;
   } else {
     // IE8 support: http://stackoverflow.com/questions/9430357/please-explain-why-and-how-new-date-works-as-workaround-for-date-now-in
-    return +new Date;
+    return function () {
+      return +new Date;
+    }
   }
-}
+})();
 
 var TapEventPlugin = {
 
