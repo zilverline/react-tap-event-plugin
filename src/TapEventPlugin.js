@@ -75,6 +75,16 @@ function getDistance(coords, nativeEvent) {
   );
 }
 
+function isAttachedToDocument(parent, descendant) {
+  if (descendant === window.document.body) { return true; }
+  try {
+    return Boolean(parent.compareDocumentPosition(descendant) & 16);
+  } catch (e) {
+   // We did not send a correct parent or descendant
+   return false;
+  }
+}
+
 var dependencies = [
   topLevelTypes.topMouseDown,
   topLevelTypes.topMouseMove,
@@ -110,6 +120,43 @@ var now = (function() {
   }
 })();
 
+
+var lastScrollTarget;
+var scrollResetValue;
+var lastScrollAtTouchEnd;
+
+var getScrollParent = function (target) {
+
+  if (target === window) {
+   return document.body;
+  }
+
+  for (var el = target; el; el = el.parentElement) {
+    var overflowY = window.getComputedStyle(el).overflowY;
+    if (overflowY === 'auto' || overflowY === 'scroll') { return el; }
+  }
+  return document.body;
+};
+
+function isAttachedToDocument(parent, descendant) {
+  if (descendant === window.document.body) { return true; }
+  try {
+    return Boolean(parent.compareDocumentPosition(descendant) & 16);
+  } catch (e) {
+    // We did not send a correct parent or descendant
+    return false;
+  }
+}
+
+function getTargetScroll(target) {
+  var el = getScrollParent(target);
+  if (target === window) {
+    return document.body.scrollTop;
+  }
+  return el.scrollTop;
+}
+
+
 var TapEventPlugin = {
 
   tapMoveThreshold: tapMoveThreshold,
@@ -132,6 +179,12 @@ var TapEventPlugin = {
       topLevelTargetID,
       nativeEvent) {
 
+
+    if (topLevelType === 'topScroll') {
+      scrollResetValue = getTargetScroll(topLevelTarget);
+      lastScrollTarget = getScrollParent(topLevelTarget);
+    }
+
     if (isTouch(topLevelType)) {
       lastTouchEvent = now();
     } else {
@@ -146,16 +199,27 @@ var TapEventPlugin = {
     var event = null;
     var distance = getDistance(startCoords, nativeEvent);
     if (isEndish(topLevelType) && distance < tapMoveThreshold) {
-      event = SyntheticUIEvent.getPooled(
-        eventTypes.touchTap,
-        topLevelTargetID,
-        nativeEvent
-      );
+
+      var newScrollTarget = getScrollParent(topLevelTarget);
+      var shouldCancelClick = lastScrollAtTouchEnd !== getTargetScroll(topLevelTarget) && isAttachedToDocument(document.body, lastScrollTarget) && lastScrollTarget === newScrollTarget;
+
+      if (!shouldCancelClick || !!!lastScrollAtTouchEnd) {
+        event = SyntheticUIEvent.getPooled(
+          eventTypes.touchTap,
+          topLevelTargetID,
+          nativeEvent
+        );
+      }
     }
     if (isStartish(topLevelType)) {
       startCoords.x = getAxisCoordOfEvent(Axis.x, nativeEvent);
       startCoords.y = getAxisCoordOfEvent(Axis.y, nativeEvent);
     } else if (isEndish(topLevelType)) {
+
+      lastScrollAtTouchEnd = getTargetScroll(topLevelTarget);
+      scrollResetValue = lastScrollAtTouchEnd;
+      lastScrollTarget = getScrollParent(topLevelTarget);
+
       startCoords.x = 0;
       startCoords.y = 0;
     }
