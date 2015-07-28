@@ -212,6 +212,10 @@ var TapEventPlugin = {
       }
     }
     if (isStartish(topLevelType)) {
+
+      lastScrollAtTouchEnd = scrollResetValue;
+      scrollResetValue = getTargetScroll(topLevelTarget);
+
       startCoords.x = getAxisCoordOfEvent(Axis.x, nativeEvent);
       startCoords.y = getAxisCoordOfEvent(Axis.y, nativeEvent);
     } else if (isEndish(topLevelType)) {
