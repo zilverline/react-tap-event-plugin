@@ -17,7 +17,7 @@ var EventPropagators = require('react/lib/EventPropagators');
 var SyntheticEvent = require('react/lib/SyntheticEvent');
 
 var accumulateInto = require('react/lib/accumulateInto');
-var keyOf = require('react/lib/keyOf');
+var keyOf = require('fbjs/lib/keyOf');
 
 var isStartish = EventPluginUtils.isStartish;
 var isMoveish = EventPluginUtils.isMoveish;

@@ -26,7 +26,7 @@ var SyntheticUIEvent = require('react/lib/SyntheticUIEvent');
 var TouchEventUtils = require('./TouchEventUtils');
 var ViewportMetrics = require('react/lib/ViewportMetrics');
 
-var keyOf = require('react/lib/keyOf');
+var keyOf = require('fbjs/lib/keyOf');
 var topLevelTypes = EventConstants.topLevelTypes;
 
 var isStartish = EventPluginUtils.isStartish;
