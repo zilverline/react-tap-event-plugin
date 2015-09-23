@@ -14,20 +14,34 @@ injectTapEventPlugin();
 
 ## Example
 
+See demo project for a complete working example.
+
 ```js
-var React = require('react'),
+var React = require("react");
+var ReactDOM = require("react-dom");
 injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 
 var Main = React.createClass({
   render: function() {
-    return <button onTouchTap={this._handleTouchTap}>Tap Me</button>
+    return (
+      <a
+        href="#"
+        onTouchTap={this.handleTouchTap}
+        onClick={this.handleClick}>
+        Tap Me
+      </a>
+    );
   },
 
-  _handleTouchTap: function() {
-    alert('Tap');
+  handleClick: function(e) {
+    console.log("click", e);
+  },
+
+  handleTouchTap: function(e) {
+    console.log("touchTap", e);
   }
 });
 
-React.render(<Main />, document.body);
+ReactDOM.render(<Main />, document.getElementById("container"));
 ```

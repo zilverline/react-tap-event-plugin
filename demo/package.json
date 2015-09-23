@@ -1,0 +1,13 @@
+{
+  "name": "react-tap-event-plugin-demo",
+  "version": "0.0.1",
+  "devDependencies": {
+    "browserify": "^11.1.0",
+    "fbjs": "^0.2.1",
+    "react": "^0.14.0-rc1",
+    "react-dom": "^0.14.0-rc1",
+    "react-tap-event-plugin": "^0.1.8",
+    "reactify": "^1.1.1",
+    "watchify": "^3.4.0"
+  }
+}
