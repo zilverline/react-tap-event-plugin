@@ -45,3 +45,7 @@ var Main = React.createClass({
 
 ReactDOM.render(<Main />, document.getElementById("container"));
 ```
+
+## Build standalone version
+
+Use the demo project and it's README instructions to build a version of React with the tap event plugin included.
