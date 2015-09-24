@@ -1,6 +1,6 @@
 {
   "name": "react-tap-event-plugin",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Facebook's TapEventPlugin, temporarily available on npm until its made public in their repo",
   "main": "src/injectTapEventPlugin.js",
   "files": ["src/"],
@@ -21,8 +21,7 @@
   ],
   "peerDependencies": {
     "fbjs": "^0.2.1",
-    "react": "^0.14.0-0 || ~0.13.x || ~0.12.x",
-    "react-dom": "^0.14.0-0"
+    "react": "^0.14.0-0"
   },
   "bugs": "https://github.com/zilverline/react-tap-event-plugin/issues",
   "licenses": [
