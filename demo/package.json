@@ -6,7 +6,7 @@
     "fbjs": "^0.2.1",
     "react": "^0.14.0-rc1",
     "react-dom": "^0.14.0-rc1",
-    "react-tap-event-plugin": "^0.1.9",
+    "react-tap-event-plugin": "^0.2.0",
     "reactify": "^1.1.1",
     "watchify": "^3.4.0"
   }
