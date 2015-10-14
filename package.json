@@ -20,8 +20,10 @@
     "react-tap-event-plugin"
   ],
   "peerDependencies": {
-    "fbjs": "^0.2.1",
     "react": "^0.14.0"
+  },
+  "dependencies": {
+    "fbjs": "^0.2.1"
   },
   "bugs": "https://github.com/zilverline/react-tap-event-plugin/issues",
   "licenses": [
