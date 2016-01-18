@@ -48,8 +48,10 @@ var isTouch = function(topLevelType) {
  */
 var tapMoveThreshold = 10;
 var ignoreMouseThreshold = 750;
+var ingoreLongPress = 700;
 var startCoords = {x: null, y: null};
 var lastTouchEvent = null;
+var startTime = null;
 
 var Axis = {
   x: {page: 'pageX', client: 'clientX', envScroll: 'currentPageScrollLeft'},
@@ -136,6 +138,16 @@ var TapEventPlugin = {
       lastTouchEvent = now();
     } else {
       if (lastTouchEvent && (now() - lastTouchEvent) < ignoreMouseThreshold) {
+        return null;
+      }
+    }
+
+    if (isStartish(topLevelType)) {
+      startTime = now();
+    }
+
+    if (isEndish(topLevelType)) {
+      if (now() - startTime > ingoreLongPress) {
         return null;
       }
     }
