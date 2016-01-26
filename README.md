@@ -46,6 +46,34 @@ var Main = React.createClass({
 ReactDOM.render(<Main />, document.getElementById("container"));
 ```
 
+### Ignoring ghost clicks
+
+When a tap happens, the browser sends a `touchstart` and `touchend`, and then
+300ms later, a `click` event. This plugin ignores the click event if it has
+been immediately preceeded by a touch event (within 750ms of the last touch
+event).
+
+Occasionally, there may be times when the 750ms threshold is exceeded due to
+slow rendering or garbage collection, and this causes the dreaded ghost click.
+
+The 750ms threshold is pretty good, but sometimes you might want to override
+that behaviour. You can do this by supplying your own `shouldRejectClick`
+function when you inject the plugin.
+
+The following example will simply reject all click events, which you might
+want to do if you are always using `onTouchTap` and only building for touch
+devices:
+
+```js
+var React = require('react'),
+injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin({
+  shouldRejectClick: function (lastTouchEventTimestamp, clickEventTimestamp) {
+    return true;
+  }
+});
+```
+
 ## Build standalone version
 
 Use the demo project and it's README instructions to build a version of React with the tap event plugin included.
