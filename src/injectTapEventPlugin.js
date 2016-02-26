@@ -3,7 +3,7 @@ var defaultClickRejectionStrategy = require('./defaultClickRejectionStrategy');
 
 var alreadyInjected = false;
 
-module.exports = function injectTapEventPlugin (strategyOverrides) {
+module.exports = function injectTapEventPlugin (strategyOverrides, tapMoveThreshold) {
   strategyOverrides = strategyOverrides || {}
   var shouldRejectClick = strategyOverrides.shouldRejectClick || defaultClickRejectionStrategy;
 
@@ -19,8 +19,9 @@ should be injected by the application.'
   }
 
   alreadyInjected = true;
+  tapMoveThreshold = tapMoveThreshold || 10;
 
   require('react/lib/EventPluginHub').injection.injectEventPluginsByName({
-    'TapEventPlugin':       require('./TapEventPlugin.js')(shouldRejectClick)
+    "TapEventPlugin":       require('./TapEventPlugin.js')(shouldRejectClick, tapMoveThreshold)
   });
 };
