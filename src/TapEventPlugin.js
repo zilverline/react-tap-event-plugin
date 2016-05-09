@@ -146,6 +146,10 @@ function createTapEventPlugin(shouldRejectClick) {
       var event = null;
       var distance = getDistance(startCoords, nativeEvent);
       if (isEndish(topLevelType) && distance < tapMoveThreshold) {
+        //小米    4.***版本固件  touchmove后没有touchend事件  只有touchend才出发tap事件
+        if (/MI{1}[\s\S]*Build{1}/.test(navigator.userAgent)&&/Android 4./.test(navigator.userAgent)&&topLevelType!=='topTouchEnd') {
+          return;
+        }
         event = SyntheticUIEvent.getPooled(
           eventTypes.touchTap,
           targetInst,
