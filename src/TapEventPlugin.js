@@ -147,6 +147,14 @@ function createTapEventPlugin(shouldRejectClick) {
       var event = null;
       var distance = getDistance(startCoords, nativeEvent);
       if (isEndish(topLevelType) && distance < tapMoveThreshold) {
+        //安卓机   启用下拉加载会触发 topTouchCancel  导致触发tap事件  这边禁止topTouchCancel触发tap事件
+        if(/Android/.test(navigator.userAgent)&&topLevelType==='topTouchCancel'){
+          return;
+        }
+        //小米    4.***版本固件  touchmove后没有touchend事件  只有touchend才出发tap事件
+        if (/MI{1}[\s\S]*Build{1}/.test(navigator.userAgent)&&/Android 4./.test(navigator.userAgent)&&topLevelType!=='topTouchEnd') {
+          return;
+        }
         event = SyntheticUIEvent.getPooled(
           eventTypes.touchTap,
           targetInst,
