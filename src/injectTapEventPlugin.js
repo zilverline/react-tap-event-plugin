@@ -1,11 +1,17 @@
 var invariant = require('fbjs/lib/invariant');
 var defaultClickRejectionStrategy = require('./defaultClickRejectionStrategy');
+/**
+ * Number of pixels that are tolerated in between a `touchStart` and `touchEnd`
+ * in order to still be considered a 'tap' event.
+ */
+var defaultTapMoveThreshold = 10;
 
 var alreadyInjected = false;
 
 module.exports = function injectTapEventPlugin (strategyOverrides) {
   strategyOverrides = strategyOverrides || {}
   var shouldRejectClick = strategyOverrides.shouldRejectClick || defaultClickRejectionStrategy;
+  var tapMoveThreshold = strategyOverrides.tapMoveThreshold || defaultTapMoveThreshold;
 
   if (process.env.NODE_ENV !== 'production') {
     invariant(
@@ -21,6 +27,6 @@ should be injected by the application.'
   alreadyInjected = true;
 
   require('react-dom/lib/EventPluginHub').injection.injectEventPluginsByName({
-    'TapEventPlugin':       require('./TapEventPlugin.js')(shouldRejectClick)
+    'TapEventPlugin':       require('./TapEventPlugin.js')(shouldRejectClick, tapMoveThreshold)
   });
 };
