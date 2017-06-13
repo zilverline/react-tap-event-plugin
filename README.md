@@ -13,17 +13,17 @@ Verify if you need this plugin for the browsers you need to support.
 
 Latest:
 ```sh
-$ npm i --save react-tap-event-plugin
+npm i --save react-tap-event-plugin
 ```
 
 Compatible with React > 0.14 && < 15.4:
 ```sh
-$ npm i --save react-tap-event-plugin@1.0.0
+npm i --save react-tap-event-plugin@1.0.0
 ```
 
 Compatible with React <= 0.14:
 ```sh
-$ npm i --save react-tap-event-plugin@0.2.2
+npm i --save react-tap-event-plugin@0.2.2
 ```
 
 ## Usage
