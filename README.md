@@ -1,6 +1,6 @@
 # DEPRECATED
 
-React 16.4 removes a lot of internals (#121) this plugin depends on and will break the plugin.
+React 16.4 removes a lot of internals ([#121](https://github.com/zilverline/react-tap-event-plugin/issues/121)) this plugin depends on and will break the plugin.
 
 Since the problem it solves [has been fixed](https://developers.google.com/web/updates/2013/12/300ms-tap-delay-gone-away) in most browsers by now you should migrate away from this plugin.
 
