@@ -1,6 +1,6 @@
 {
   "name": "react-tap-event-plugin",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Facebook's TapEventPlugin, temporarily available on npm until its made public in their repo",
   "main": "src/injectTapEventPlugin.js",
   "files": [
@@ -22,8 +22,8 @@
     "react-tap-event-plugin"
   ],
   "peerDependencies": {
-    "react": "^16.0.0-0",
-    "react-dom": "^16.0.0-0"
+    "react": "^16.0.0-0 < 16.4.0",
+    "react-dom": "^16.0.0-0 < 16.4.0"
   },
   "dependencies": {
     "fbjs": "^0.8.6"
